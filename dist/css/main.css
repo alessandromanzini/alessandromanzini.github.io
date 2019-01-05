@@ -1,0 +1,87 @@
+/* Effetti paralasse */
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.parallax-1 {
+    height: 1200px;
+    background-image: url("../../img/maxresdefault.jpg");
+}
+
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+}
+
+/* Animazione link nav */
+nav.fill a.navbar-brand:hover,
+nav.fill ul li a.nav-link,
+nav.fill ul li a.nav-link:after,
+nav ul li a.nav-link:before {
+    transition: all .5s;
+}
+
+nav.fill a.navbar-brand:hover, 
+nav.fill ul li a.nav-link:hover{
+    z-index: 1;
+}
+
+nav.fill a.navbar-brand{
+    transition: 2s;
+}
+
+nav.fill ul li a.nav-link {
+    position: relative;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    transition: all 2s;
+    color: #aa2935 !important;
+}
+nav.fill ul li a.nav-link:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '.';
+    color: transparent;
+    height: 1px;
+}
+nav.fill ul li a.nav-link:after {
+    text-align: left;
+    content: '.';
+    margin: 0;
+    opacity: 0;
+}
+nav.fill ul li a.nav-link:hover:after {
+    z-index: -10;
+    animation: fill 1s forwards;
+    -webkit-animation: fill 1s forwards;
+    -moz-animation: fill 1s forwards;
+    opacity: 1;
+}
+
+/* Keyframes */
+@-webkit-keyframes fill {
+    0% {
+        width: 0%;
+        height: 1px;
+    }
+    50% {
+        width: 100%;
+        height: 1px;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+        background: rgb(255, 255, 255);
+    }
+}
+
+.provvisorioFrontEnd{
+    padding-top:8rem
+}
