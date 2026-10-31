@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alessandro Manzini — C++ Software Engineer · Portfolio</title>
+  <meta name="description" content="Portfolio of Alessandro Manzini, C++ software engineer focused on engine development and graphics programming. Vulkan rasterizer, 2D game engine, diagnostic library and more.">
+  <meta name="author" content="Alessandro Manzini">
+  <meta name="theme-color" content="#161616">
+  <link rel="canonical" href="https://alessandromanzini.github.io/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Link previews (LinkedIn, Slack, iMessage, X…). Regenerate preview.jpg with tools/make-preview.py -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alessandromanzini.github.io/">
+  <meta property="og:title" content="Alessandro Manzini — C++ Software Engineer">
+  <meta property="og:description" content="Engine development and graphics programming portfolio.">
+  <meta property="og:image" content="https://alessandromanzini.github.io/preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Portfolio cover: C++ Software Engineer, Alessandro Manzini">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Visitor stats: create a free site at goatcounter.com, put its code in place of YOURCODE and uncomment.
+  <script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
+
+  <link rel="stylesheet" href="vendor/pdfjs/web/pdf_viewer.css">
+  <style>
+    :root {
+      --bg: #ececec;
+      --accent: #d9576a;
+      --gap: 24px;
+      --max-width: 1400px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #161616; }
+    }
+    html, body { margin: 0; height: 100%; background: var(--bg); }
+
+    /* PDFViewer requires an absolutely positioned scroll container */
+    #container {
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+      outline: none;
+      scroll-snap-type: y proximity;
+    }
+    /* Where a slide fills the screen, always settle on a whole slide */
+    @media (orientation: landscape) {
+      #container { scroll-snap-type: y mandatory; }
+    }
+
+    .pdfViewer { padding: var(--gap) 0; }
+    .pdfViewer .page {
+      margin: 0 auto var(--gap);
+      box-shadow: 0 2px 16px rgb(0 0 0 / 0.15);
+      scroll-snap-align: center;
+    }
+    .pdfViewer .page:last-child { margin-bottom: 0; }
+    /* Several slides fit on a tall screen, so line them up by their top edge instead */
+    @media (orientation: portrait) {
+      #container { scroll-padding-top: var(--gap); }
+      .pdfViewer .page { scroll-snap-align: start; }
+    }
+
+    #progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease, opacity 0.5s 0.2s;
+    }
+    #progress.done { opacity: 0; }
+
+    #controls {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      height: 44px;
+      border-radius: 22px;
+      color: #fff;
+      background: rgb(20 20 20 / 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgb(0 0 0 / 0.25);
+      font: 500 14px/1 system-ui, sans-serif;
+      transition: background 0.2s;
+    }
+    #controls:hover { background: rgb(20 20 20 / 0.85); }
+
+    #counter {
+      padding: 0 12px 0 16px;
+      font-variant-numeric: tabular-nums;
+      opacity: 0.8;
+    }
+    #counter:empty { display: none; }
+
+    #download {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 12px;
+      color: inherit;
+      text-decoration: none;
+      border-radius: inherit;
+      outline-offset: -2px;
+    }
+    #counter:not(:empty) + #download { border-left: 1px solid rgb(255 255 255 / 0.2); border-radius: 0 22px 22px 0; }
+    #download svg { width: 20px; height: 20px; flex: none; }
+    #download span {
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0;
+      transition: max-width 0.25s ease, opacity 0.2s, margin 0.25s;
+    }
+    #download:hover span, #download:focus-visible span {
+      max-width: 120px;
+      margin-left: 8px;
+      opacity: 1;
+    }
+    @media (max-width: 600px) {
+      :root { --gap: 12px; }
+      #controls { right: 12px; bottom: 12px; }
+    }
+
+    /* Text version of the portfolio for search engines and screen readers */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    #fallback {
+      display: none;
+      font: 16px/1.5 system-ui, sans-serif;
+      text-align: center;
+      padding: 40vh 16px 0;
+    }
+    #fallback a { color: inherit; }
+  </style>
+</head>
+<body>
+  <header class="visually-hidden">
+    <h1>Alessandro Manzini — C++ Software Engineer</h1>
+    <p>C++ software engineer with a strong focus on modern practices and experimental thinking. Engine development and graphics programming are my biggest passions.</p>
+    <h2>Experience</h2>
+    <ul>
+      <li>C++ Engine &amp; Graphics Intern at Triumph Studios (Feb – Jun 2026)</li>
+      <li>Full-stack C# Developer at Mpt Srl (Jan 2020 – Nov 2024)</li>
+    </ul>
+    <h2>Personal projects</h2>
+    <ul>
+      <li>ASH Library — an OS native diagnostic library</li>
+      <li>Rhaster Engine — a cross-platform 2D game engine</li>
+      <li>Vulkan Rasterizer — a cross-platform Vulkan renderer</li>
+      <li>Cuphead Remake — PROG2 exam project</li>
+      <li>Geometric Algebra Physics — a physics engine based on PPGA</li>
+    </ul>
+    <h2>Education</h2>
+    <p>Game Development Bachelor Degree, Howest — Digital Arts &amp; Entertainment (2023 – 2026)</p>
+    <p><a href="https://github.com/alessandromanzini">GitHub</a> · <a href="https://www.linkedin.com/in/alessandro-manzini-developer/">LinkedIn</a> · <a href="portfolio.pdf">Portfolio PDF</a></p>
+  </header>
+
+  <div id="progress" role="progressbar" aria-label="Loading portfolio"></div>
+  <div id="container" tabindex="-1">
+    <div id="viewer" class="pdfViewer"></div>
+  </div>
+  <div id="controls">
+    <span id="counter" aria-live="polite"></span>
+    <a id="download" href="portfolio.pdf" download="Alessandro-Manzini-Portfolio.pdf" aria-label="Download PDF" title="Download PDF" data-goatcounter-click="download-pdf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/>
+      </svg>
+      <span>Download PDF</span>
+    </a>
+  </div>
+  <p id="fallback">Couldn't display the portfolio here. <a href="portfolio.pdf">Open the PDF</a>.</p>
+
+  <script type="module">
+    const PDFJS = "vendor/pdfjs";
+    const PDF_URL = "portfolio.pdf";
+
+    const container = document.getElementById("container");
+    const progress = document.getElementById("progress");
+    const counter = document.getElementById("counter");
+    // Read before the viewer starts rewriting the URL, so #page=N links land on N
+    const initialPage = Number(new URLSearchParams(location.hash.slice(1)).get("page"));
+
+    // Arrow keys, Page Up/Down and Space scroll the slides without clicking first
+    container.focus();
+
+    try {
+      // pdf_viewer.mjs reads the core library from globalThis.pdfjsLib
+      const pdfjsLib = await import(`./${PDFJS}/build/pdf.min.mjs`);
+      globalThis.pdfjsLib = pdfjsLib;
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS}/build/pdf.worker.min.mjs`;
+      const { EventBus, PDFLinkService, PDFViewer, LinkTarget } = await import(`./${PDFJS}/web/pdf_viewer.mjs`);
+
+      const eventBus = new EventBus();
+      const linkService = new PDFLinkService({ eventBus, externalLinkTarget: LinkTarget.BLANK });
+      const pdfViewer = new PDFViewer({ container, eventBus, linkService, removePageBorders: true });
+      linkService.setViewer(pdfViewer);
+
+      const loadingTask = pdfjsLib.getDocument({
+        url: PDF_URL,
+        cMapUrl: `${PDFJS}/cmaps/`,
+        cMapPacked: true,
+        standardFontDataUrl: `${PDFJS}/standard_fonts/`,
+      });
+      loadingTask.onProgress = ({ loaded, total }) => {
+        if (total) progress.style.transform = `scaleX(${loaded / total})`;
+      };
+      const pdf = await loadingTask.promise;
+
+      // Page sizes are in PDF points; the viewer scales by 96/72 to get CSS px.
+      // Fit each slide entirely on screen so snapping always shows a whole slide.
+      const { width: pageWidth, height: pageHeight } = (await pdf.getPage(1)).getViewport({ scale: 1 });
+      const fitPage = () => {
+        const styles = getComputedStyle(document.documentElement);
+        const gap = parseFloat(styles.getPropertyValue("--gap"));
+        const maxWidth = parseFloat(styles.getPropertyValue("--max-width"));
+        const targetWidth = Math.min(container.clientWidth - 2 * gap, maxWidth);
+        const targetHeight = container.clientHeight - 2 * gap;
+        const scale = Math.min(targetWidth / pageWidth, targetHeight / pageHeight);
+        rescaling = true;
+        pdfViewer.currentScale = scale / (96 / 72);
+        rescaling = false;
+      };
+
+      // Eased scrolling; snapping is paused meanwhile so it can't fight each frame
+      const easeInOutCubic = t => t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+      const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      let animation = 0;
+      let targetPage = 1;
+
+      const stopAnimation = () => {
+        cancelAnimationFrame(animation);
+        animation = 0;
+        container.style.scrollSnapType = "";
+      };
+
+      const animateScrollTo = (target, instant = false) => {
+        stopAnimation();
+        target = Math.max(0, Math.min(target, container.scrollHeight - container.clientHeight));
+        const start = container.scrollTop;
+        const distance = target - start;
+        if (instant || reduceMotion.matches || Math.abs(distance) < 1) {
+          container.scrollTop = target;
+          return;
+        }
+        const duration = Math.min(1200, 450 + Math.sqrt(Math.abs(distance)) * 8);
+        const startTime = performance.now();
+        container.style.scrollSnapType = "none";
+        const step = now => {
+          const t = Math.min((now - startTime) / duration, 1);
+          container.scrollTop = start + distance * easeInOutCubic(t);
+          if (t < 1) animation = requestAnimationFrame(step);
+          else stopAnimation();
+        };
+        animation = requestAnimationFrame(step);
+      };
+
+      // Wide screens centre one slide; tall screens align slides to the top (matches the CSS snapping)
+      const centered = matchMedia("(orientation: landscape)");
+      const gap = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--gap"));
+
+      const scrollToPage = (pageNumber, instant = false) => {
+        const view = pdfViewer.getPageView(pageNumber - 1);
+        if (!view) return;
+        targetPage = pageNumber;
+        const { offsetTop, offsetHeight } = view.div;
+        const target = centered.matches ? offsetTop + (offsetHeight - container.clientHeight) / 2 : offsetTop - gap();
+        animateScrollTo(target, instant);
+      };
+
+      // The slide under the screen's centre (or top edge, on tall screens)
+      const pageInView = () => {
+        const count = pdfViewer.pagesCount;
+        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 2) return count;
+        const line = container.scrollTop + (centered.matches ? container.clientHeight / 2 : gap() + 1);
+        for (let page = count; page > 1; page--) {
+          if (pdfViewer.getPageView(page - 1).div.offsetTop <= line) return page;
+        }
+        return 1;
+      };
+
+      // Let the user take over mid-animation
+      for (const type of ["wheel", "touchstart", "pointerdown"]) {
+        container.addEventListener(type, () => animation && stopAnimation(), { passive: true });
+      }
+
+      // Links go through scrollPageIntoView; rescaling keeps the stock instant behaviour
+      let rescaling = false;
+      const scrollPageIntoView = pdfViewer.scrollPageIntoView.bind(pdfViewer);
+      pdfViewer.scrollPageIntoView = params =>
+        rescaling ? scrollPageIntoView(params) : scrollToPage(params.pageNumber);
+
+      // Keyboard steps one slide at a time with the same easing
+      container.addEventListener("keydown", event => {
+        const steps = { ArrowDown: 1, PageDown: 1, " ": event.shiftKey ? -1 : 1, ArrowUp: -1, PageUp: -1 };
+        const current = animation ? targetPage : pageInView();
+        let page;
+        if (event.key in steps) page = current + steps[event.key];
+        else if (event.key === "Home") page = 1;
+        else if (event.key === "End") page = pdfViewer.pagesCount;
+        else return;
+        event.preventDefault();
+        scrollToPage(Math.max(1, Math.min(page, pdfViewer.pagesCount)));
+      });
+
+      // Keep the counter and the URL in step with the slide in view, so any slide can be shared
+      let shownPage = 0;
+      const updatePage = () => {
+        const page = pageInView();
+        if (page === shownPage) return;
+        shownPage = page;
+        counter.textContent = `${page} / ${pdfViewer.pagesCount}`;
+        const hash = page > 1 ? `#page=${page}` : "";
+        if (location.hash !== hash) history.replaceState(null, "", location.pathname + location.search + hash);
+      };
+      container.addEventListener("scroll", updatePage, { passive: true });
+
+      eventBus.on("pagesinit", () => {
+        fitPage();
+        if (initialPage > 1) scrollToPage(Math.min(initialPage, pdfViewer.pagesCount), true);
+        updatePage();
+      });
+      eventBus.on("pagerendered", () => {
+        progress.style.transform = "scaleX(1)";
+        progress.classList.add("done");
+      }, { once: true });
+      window.addEventListener("resize", fitPage);
+
+      pdfViewer.setDocument(pdf);
+      linkService.setDocument(pdf);
+    } catch (err) {
+      console.error(err);
+      for (const id of ["container", "progress", "controls"]) document.getElementById(id).style.display = "none";
+      document.getElementById("fallback").style.display = "block";
+    }
+  </script>
+</body>
+</html>
