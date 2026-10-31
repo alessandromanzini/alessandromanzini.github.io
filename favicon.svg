@@ -1,5 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#161616"/>
-  <text x="32" y="43" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="-1" fill="#fff">AM</text>
-  <rect x="16" y="49" width="32" height="3" rx="1.5" fill="#d9576a"/>
+  <!-- AM monogram, drawn as strokes so it renders the same everywhere; the A's crossbar carries the accent red -->
+  <defs>
+    <!-- Cuts every foot level with the baseline -->
+    <clipPath id="baseline"><rect width="64" height="44"/></clipPath>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#1c1716"/>
+  <g fill="none" stroke-width="5" stroke-linejoin="round" clip-path="url(#baseline)">
+    <path d="M13.5 36 H24.5" stroke="#d9576a"/>
+    <path d="M8.9 47 L19 20 L29.1 47 M33 47 V20 L42.5 34 L52 20 V47" stroke="#f2ece2"/>
+  </g>
 </svg>
