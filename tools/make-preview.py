@@ -9,7 +9,9 @@ from pathlib import Path
 import pymupdf
 
 ROOT = Path(__file__).resolve().parent.parent
-WIDTH, HEIGHT = 1200, 630  # Open Graph recommended size
+# Open Graph's 1.91:1 ratio at the cover's native width, so nothing is downscaled and LinkedIn
+# stays sharp on high-density screens. Keep og:image:width/height in index.html in sync.
+WIDTH, HEIGHT = 1920, 1005
 
 page = pymupdf.open(ROOT / "portfolio.pdf")[0]
 scale = WIDTH / page.rect.width
@@ -20,5 +22,5 @@ top = round((page.rect.height - clip_height) / 2 * scale) / scale  # whole outpu
 clip = pymupdf.Rect(0, top, page.rect.width, top + clip_height)
 
 pixmap = page.get_pixmap(matrix=pymupdf.Matrix(scale, scale), clip=clip)
-pixmap.save(ROOT / "preview.jpg", jpg_quality=85)
+pixmap.save(ROOT / "preview.jpg", jpg_quality=92)
 print(f"Wrote {ROOT / 'preview.jpg'} ({pixmap.width}x{pixmap.height})")
