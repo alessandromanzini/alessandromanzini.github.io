@@ -413,3 +413,6 @@ FodyWeavers.xsd
 
 # MacOs specific
 *.DS_Store
+
+# GitHub Pages build output (see .github/workflows/deploy.yml)
+_site/
